@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth-service';
@@ -10,10 +11,17 @@ import { AuthService } from 'src/app/services/auth-service';
 })
 export class ManageProductsComponent implements OnInit {
   products : Product[] = [];
+  filteredProducts: Product[] = [];
+  filterForm: FormGroup;
+  activeFilter: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
-  ){}
+  ){
+    this.filterForm = new FormGroup({
+      filter: new FormControl("", [Validators.required, Validators.pattern(/^[^<>]+$/)])
+    });
+  }
   ngOnInit() {
     this.getProducts();
   }  
@@ -38,6 +46,30 @@ export class ManageProductsComponent implements OnInit {
         photo: 98765
       }
     ];
+    this.filteredProducts = this.products;
+  }
+  searchProduct() {
+    const searchTerm = this.filterForm.get('filter')?.value.toLowerCase();
+    if (searchTerm) {
+      this.filteredProducts = [
+        {
+          id: 2,
+          code: 'PROD002',
+          name: 'Jeans',
+          size: 'M',
+          color: 54321,
+          photo: 98765
+        }
+      ];
+    } else {
+      this.filteredProducts = this.products;
+    }
+    this.activeFilter = true;
+  }
+  cleanFilter() {
+    this.filteredProducts = this.products;
+    this.activeFilter = false;
+    this.filterForm.get('filter')?.setValue('');
   }
   deleteProduct(id: number): void {
     //llamada al servicio {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service';
 import { User } from 'src/app/models/user';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-manage-users',
@@ -10,10 +11,17 @@ import { User } from 'src/app/models/user';
 })
 export class ManageUsersComponent {
   users : User[] = [];
+  filteredUsers: User[] = [];
+  filterForm: FormGroup;
+  activeFilter: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
-  ){}
+  ){
+    this.filterForm = new FormGroup({
+      filter: new FormControl("", [Validators.required, Validators.pattern(/^[^<>]+$/)])
+    });
+  }
   ngOnInit() {
     this.getUsers();
   }
@@ -40,6 +48,31 @@ export class ManageUsersComponent {
         storeId: 2
       }
     ];
+    this.filteredUsers = this.users; // initialize filteredUsers with all users
+  }
+  searchUser() {
+    const searchTerm = this.filterForm.get('filter')?.value.toLowerCase();
+    if (searchTerm) {
+      this.filteredUsers = [
+        {
+          id: 1,
+          username: '202PEdro120',
+          password: '124',
+          firstName: 'Pedro4',
+          lastName: 'Picapiedra',
+          enabled: true,
+          storeId: 2
+        }
+      ];
+    } else {
+      this.filteredUsers = this.users;
+    }
+    this.activeFilter = true;
+  }
+  cleanFilter() {
+    this.filteredUsers = this.users;
+    this.activeFilter = false;
+    this.filterForm.get('filter')?.setValue('');
   }
   disableUser(id: number, username: string, password: string, firstName: string, lastName: string, enabled: boolean): void {
     //llamada al servicio {}
@@ -49,9 +82,6 @@ export class ManageUsersComponent {
   }
   createUser(){
     this.router.navigate(['/user/creation']);
-  }
-  index(){
-    this.router.navigate(['/images']);
   }
   logout(){
     this.authenticationService.logout();

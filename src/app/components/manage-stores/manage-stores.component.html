@@ -15,6 +15,13 @@
                     </button>
                 </div>
             </div>
+            <div class="header-right">
+              <form [formGroup]="filterForm" class="search-form" (ngSubmit)="searchStore()">
+                <input type="text" formControlName="filter" placeholder="Buscar" class="search-input">
+                <button type="submit" class="search-btn" [disabled]="!filterForm.valid">Buscar</button>
+                <button type="button" class="clean-btn" (click)="cleanFilter()">Limpiar</button>
+              </form>
+            </div>
             <div *ngIf="stores.length > 0" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-black">
                     <thead class="text-xs uppercase text-black bg-gray-200">
@@ -30,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b" *ngFor="let store of stores; index as storeIndex">
+                        <tr class="border-b" *ngFor="let store of filteredStores; index as storeIndex">
                             <td class="px-4 py-3 table-cell">{{store.id}}</td>
                             <td class="px-4 py-3 table-cell">{{store.code}}</td>
                             <td class="px-4 py-3 table-cell">{{store.address}}</td>
