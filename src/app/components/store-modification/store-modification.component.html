@@ -35,6 +35,34 @@
                     La provincia es obligatoria
                 </span>
             </div>
+            <div class="form-group">
+                <label for="users" class="col-label">Usuarios*</label>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Seleccionar usuarios</mat-label>
+                    <mat-select formControlName="users" multiple>
+                        <mat-option *ngFor="let user of usersList" [value]="user">
+                            {{user}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="error-message" *ngIf="validateStore.controls['users'].invalid && validateStore.controls['users'].touched">
+                    Debe seleccionar al menos un usuario
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="products" class="col-label">Productos*</label>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Seleccionar productos</mat-label>
+                    <mat-select formControlName="products" multiple>
+                        <mat-option *ngFor="let product of productsList" [value]="product">
+                            {{product}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="error-message" *ngIf="validateStore.controls['products'].invalid && validateStore.controls['products'].touched">
+                    Debe seleccionar al menos un producto
+                </span>
+            </div>
             <div class="form-group radio-group">
                 <label><input type="radio" formControlName="enabled" id="enabled1" value="1">Habilitado</label>
                 <label><input type="radio" formControlName="enabled" id="enabled2" value="0">Deshabilitado</label>

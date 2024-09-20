@@ -14,6 +14,7 @@ export class ManageProductsComponent implements OnInit {
   filteredProducts: Product[] = [];
   filterForm: FormGroup;
   activeFilter: boolean = false;
+  showElement: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
@@ -23,29 +24,48 @@ export class ManageProductsComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getProducts();
+    const storeId = localStorage.getItem('storeId');
+    this.showElement = storeId == '0'
+    this.getProducts(this.showElement);
   }  
-  getProducts(){
-    this.products = []
-    //llamada al servicio {}
-    this.products = [
-      {
-        id: 1,
-        code: 'PROD001',
-        name: 'T-Shirt',
-        size: 'L',
-        color: 12345,
-        photo: 67890
-      },
-      {
-        id: 2,
-        code: 'PROD002',
-        name: 'Jeans',
-        size: 'M',
-        color: 54321,
-        photo: 98765
-      }
-    ];
+  getProducts(showElement: boolean){
+    if(showElement){
+      this.products = []
+      //si es usuario de casa central = 0, se muestran todos los productos
+      //llamada al servicio {}
+      this.products = [
+        {
+          id: 1,
+          code: 'PROD001',
+          name: 'T-Shirt',
+          size: 'L',
+          color: 12345,
+          photo: 67890
+        },
+        {
+          id: 2,
+          code: 'PROD002',
+          name: 'Jeans',
+          size: 'M',
+          color: 54321,
+          photo: 98765
+        }
+      ];
+    }
+    else{      
+      //si es usuario de tienda, solo se muestran los productos de la tienda
+      //llamada al servicio {}
+      this.products = [
+        {
+          id: 2,
+          code: 'PROD002',
+          name: 'Jeans',
+          size: 'M',
+          color: 54321,
+          photo: 98765
+        }
+      ];
+    }
     this.filteredProducts = this.products;
   }
   searchProduct() {

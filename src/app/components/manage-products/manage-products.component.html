@@ -10,7 +10,7 @@
             <div class="header">
                 <div class="header-left">
                     <h2 class="text-black">Productos</h2>
-                    <button class="new-product-btn" (click)="createProduct()">
+                    <button *ngIf="showElement" class="new-product-btn" (click)="createProduct()">
                         <i class="fas fa-plus"></i> Nuevo producto
                     </button>
                 </div>
@@ -26,20 +26,16 @@
                 <table class="w-full text-sm text-left text-black">
                     <thead class="text-xs uppercase text-black bg-gray-200">
                         <tr>
-                            <th scope="col" class="px-4 py-3">Foto</th>
-                            <th scope="col" class="px-4 py-3">Id</th>
                             <th scope="col" class="px-4 py-3">C&oacute;digo</th>
                             <th scope="col" class="px-4 py-3">Nombre</th>
                             <th scope="col" class="px-4 py-3">Tamaño</th>
                             <th scope="col" class="px-4 py-3">Color</th>
                             <th scope="col" class="px-4 py-3">Editar</th>
-                            <th scope="col" class="px-4 py-3">Eliminar</th>
+                            <th *ngIf="showElement" scope="col" class="px-4 py-3">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="border-b" *ngFor="let product of filteredProducts; index as productIndex">
-                            <td class="px-4 py-3 table-cell">{{product.photo}}</td>
-                            <td class="px-4 py-3 table-cell">{{product.id}}</td>
                             <td class="px-4 py-3 table-cell">{{product.code}}</td>
                             <td class="px-4 py-3 table-cell">{{product.name}}</td>
                             <td class="px-4 py-3 table-cell">{{product.size}}</td>
@@ -49,7 +45,7 @@
                                     <i class="fas fa-edit"></i>
                                 </button>
                             </td>
-                            <td class="px-4 py-3 action-buttons">
+                            <td *ngIf="showElement" class="px-4 py-3 action-buttons">
                                 <button class="delete-button" (click)="deleteProduct(product.id!)">
                                     <i class="fas fa-times"></i>
                                 </button>

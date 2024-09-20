@@ -12,6 +12,7 @@ export class ProductModificationComponent {
   validateProduct: FormGroup;
   response: string | undefined;
   productId!: number;
+  storesList: string[] = [];
 
   constructor(
     private authenticationService: AuthService,
@@ -19,33 +20,39 @@ export class ProductModificationComponent {
     private router: Router
   ) {
     this.validateProduct = new FormGroup({
-      code: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       size: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      color: new FormControl('', [Validators.required, Validators.maxLength(20)]),  
+      color: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       photo: new FormControl(),
+      stores: new FormControl([], Validators.required),
     });
   }
   ngOnInit() {
+    this.getStores();
     this.route.params.subscribe(params => {
       this.productId = params['productId'];
       this.getProduct(this.productId);
     });
   }
+  getStores(){
+    this.storesList = []
+    //llamada al servicio {}
+    this.storesList = ['123WWW', '123WEE', '000X0X'];
+  }
   onSubmit(): void {
     this.response = "";
     if (this.validateProduct.valid) {
-      const code = this.validateProduct.get('code')?.value;
       const name = this.validateProduct.get('name')?.value;
       const size = this.validateProduct.get('size')?.value;
       const color = this.validateProduct.get('color')?.value;
       const photo = this.validateProduct.get('photo')?.value;
-      this.registerProduct(code, name, size, color, photo)
+      const stores = this.validateProduct.get('stores')?.value;
+      this.editProduct(name, size, color, photo, stores);
     } else {
       this.response = "El formulario contiene errores. Por favor, verifique los campos.";
     }
   }
-  registerProduct(code: string, name: string, size: string, color: string, photo: number): void {
+  editProduct(name: string, size: string, color: string, photo: number, stores: string[]): void {
     //llamada al servicio{}
     this.router.navigate(["/products"]);
   }
@@ -60,9 +67,6 @@ export class ProductModificationComponent {
         photo: this.store.photo,
       });
     */
-  }
-  index() {
-    this.router.navigate(['/stores']);
   }
   logout() {
     this.authenticationService.logout();

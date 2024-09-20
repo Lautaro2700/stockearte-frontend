@@ -10,11 +10,14 @@ import { Stocks } from 'src/app/models/stocks';
 })
 export class ManageStocksComponent implements OnInit {
   stocks : Stocks[] = [];
+  showElement: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
   ){}
   ngOnInit() {
+    const storeId = localStorage.getItem('storeId');
+    this.showElement = storeId !== '0'
     this.getStocks();
   }  
   getStocks(){
@@ -34,9 +37,6 @@ export class ManageStocksComponent implements OnInit {
         quantity: 15
       }
     ];
-  }
-  deleteStock(id: number): void {
-    //llamada al servicio {}
   }
   createStock(){
     this.router.navigate(['/stock/creation']);

@@ -13,6 +13,7 @@ import { UserModificationComponent } from './components/user-modification/user-m
 import { ProductCreationComponent } from './components/product-creation/product-creation.component';
 import { ProductModificationComponent } from './components/product-modification/product-modification.component';
 import { StockCreationComponent } from './components/stock-creation/stock-creation.component';
+import { StockModificationComponent } from './components/stock-modification/stock-modification.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
   {path: 'product/creation', component: ProductCreationComponent, canActivate: [AuthService]},
   {path: 'product/edit/:productId', component: ProductModificationComponent, canActivate: [AuthService]},
   {path: 'stock/creation', component: StockCreationComponent, canActivate: [AuthService]},
-  {path: 'stock/edit/:stockId', component: ProductModificationComponent, canActivate: [AuthService]},
+  {path: 'stock/edit/:stockId', component: StockModificationComponent, canActivate: [AuthService]},
   {path: '**', redirectTo: '/stores'}
 ];
 

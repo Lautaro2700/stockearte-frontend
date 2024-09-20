@@ -17,21 +17,36 @@
     transition: background-color 0.3s ease;
 }
 .container {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     height: 100vh;
-    display: outside;
-    justify-content: center;
-    align-items: center;
     margin: 0;
+    padding: 0;
     background-color: #f0f4f8; /* Light blue-gray background for the body */
 }
+
 body {
-    padding: 30px 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     background-color: #f3f4f6;
+    height: 100%;
+}
+
+/* Make sure the navbar sticks to the top of the page */
+app-navbar {
+    padding-top: 50px; /* Optional: Adjust padding as needed */
+    margin-top: 0;
+}
+
+/* Ensure the table and content adjust */
+.overflow-x-auto {
+    max-height: 80vh; /* Adjust this value to control table height */
+    overflow-y: auto; /* Enable scrolling */
 }
 .new-stock-btn {
     padding: 10px 20px;

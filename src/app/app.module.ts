@@ -18,6 +18,10 @@ import { ProductCreationComponent } from './components/product-creation/product-
 import { ProductModificationComponent } from './components/product-modification/product-modification.component';
 import { StockModificationComponent } from './components/stock-modification/stock-modification.component';
 import { StockCreationComponent } from './components/stock-creation/stock-creation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import { StockCreationComponent } from './components/stock-creation/stock-creati
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

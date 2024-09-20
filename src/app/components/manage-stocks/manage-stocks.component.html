@@ -10,7 +10,7 @@
             <div class="header">
                 <div class="header-left">
                     <h2 class="text-black">Stocks</h2>
-                    <button class="new-stock-btn" (click)="createStock()">
+                    <button *ngIf="showElement" class="new-stock-btn" (click)="createStock()">
                         <i class="fas fa-plus"></i> Nuevo stock
                     </button>
                 </div>
@@ -22,8 +22,7 @@
                             <th scope="col" class="px-4 py-3">Id de tienda</th>
                             <th scope="col" class="px-4 py-3">Id de producto</th>
                             <th scope="col" class="px-4 py-3">Cantidad</th>
-                            <th scope="col" class="px-4 py-3">Editar</th>
-                            <th scope="col" class="px-4 py-3">Eliminar</th>
+                            <th *ngIf="showElement" scope="col" class="px-4 py-3">Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,14 +30,9 @@
                             <td class="px-4 py-3 table-cell">{{stock.storeId}}</td>
                             <td class="px-4 py-3 table-cell">{{stock.productId}}</td>
                             <td class="px-4 py-3 table-cell">{{stock.quantity}}</td>
-                            <td class="px-4 py-3 action-buttons">
+                            <td *ngIf="showElement" class="px-4 py-3 action-buttons">
                                 <button class="edit-button" routerLink="/stock/edit/{{stock.id}}">
                                     <i class="fas fa-edit"></i>
-                                </button>
-                            </td>
-                            <td class="px-4 py-3 action-buttons">
-                                <button class="delete-button" (click)="deleteStock(stock.id!)">
-                                    <i class="fas fa-times"></i>
                                 </button>
                             </td>
                         </tr>

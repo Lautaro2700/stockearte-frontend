@@ -14,6 +14,7 @@ export class ManageUsersComponent {
   filteredUsers: User[] = [];
   filterForm: FormGroup;
   activeFilter: boolean = false;
+  showElement: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
@@ -23,6 +24,8 @@ export class ManageUsersComponent {
     });
   }
   ngOnInit() {
+    const storeId = localStorage.getItem('storeId');
+    this.showElement = storeId == '0'
     this.getUsers();
   }
   getUsers(){
@@ -36,7 +39,8 @@ export class ManageUsersComponent {
         firstName: 'Pedro',
         lastName: 'Picapiedra',
         enabled: true,
-        storeId: 1
+        storeId: 1,
+        storeCode: '23east'
       },
       {
         id: 1,
@@ -45,7 +49,8 @@ export class ManageUsersComponent {
         firstName: 'Pedro4',
         lastName: 'Picapiedra',
         enabled: true,
-        storeId: 2
+        storeId: 2,
+        storeCode: '23west'
       }
     ];
     this.filteredUsers = this.users; // initialize filteredUsers with all users
@@ -61,7 +66,8 @@ export class ManageUsersComponent {
           firstName: 'Pedro4',
           lastName: 'Picapiedra',
           enabled: true,
-          storeId: 2
+          storeId: 2,
+          storeCode: '24east'
         }
       ];
     } else {
@@ -75,9 +81,6 @@ export class ManageUsersComponent {
     this.filterForm.get('filter')?.setValue('');
   }
   disableUser(id: number, username: string, password: string, firstName: string, lastName: string, enabled: boolean): void {
-    //llamada al servicio {}
-  }
-  deleteUser(id: number): void {
     //llamada al servicio {}
   }
   createUser(){

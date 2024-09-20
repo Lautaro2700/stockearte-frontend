@@ -28,8 +28,10 @@ export class LoginComponent{
     }
   }
   checkUser(username: string, password: string): void {
-    this.authService.login();
-    //llamada al servicio {}
+    //llamada al servicio de check user
+    //llamada al servicio de get user
+    //Se envia el id, si es null se envia 0
+    this.authService.login(1);
     //response = data
   }
 }

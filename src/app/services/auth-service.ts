@@ -9,14 +9,16 @@ export class AuthService implements CanActivate {
 
   constructor(private router: Router) {}
 
-  login(): void {
+  login(storeId: number): void {
     localStorage.setItem('user', 'authenticated');
+    localStorage.setItem('storeId', storeId.toString());
     this.isAuthenticated = true;
     this.router.navigate(['/images']);
   }
 
   logout(): void {
     localStorage.removeItem('user');
+    localStorage.removeItem('storeId');
     this.isAuthenticated = false;
     this.router.navigate(['/login']);
   }

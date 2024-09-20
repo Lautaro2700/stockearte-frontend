@@ -6,5 +6,6 @@ export interface User {
     lastName?: string;
     enabled?: boolean;
     storeId?: number;
+    storeCode?: string;
 }
 

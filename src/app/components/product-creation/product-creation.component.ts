@@ -11,38 +11,44 @@ import { AuthService } from 'src/app/services/auth-service';
 export class ProductCreationComponent {
   validateProduct: FormGroup;
   response: string | undefined;
+  storesList: string[] = [];
 
   constructor(
     private authenticationService: AuthService,
     private router: Router
   ) {
     this.validateProduct = new FormGroup({
-      code: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       size: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      color: new FormControl('', [Validators.required, Validators.maxLength(20)]),  
+      color: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       photo: new FormControl(),
+      stores: new FormControl([], Validators.required),
     });
+  }
+  ngOnInit() {
+    this.getStores();
+  }
+  getStores(){
+    this.storesList = []
+    //llamada al servicio {}
+    this.storesList = ['123WWW', '123WEE', '000X0X'];
   }
   onSubmit(): void {
     this.response = "";
     if (this.validateProduct.valid) {
-      const code = this.validateProduct.get('code')?.value;
       const name = this.validateProduct.get('name')?.value;
       const size = this.validateProduct.get('size')?.value;
       const color = this.validateProduct.get('color')?.value;
       const photo = this.validateProduct.get('photo')?.value;
-      this.registerProduct(code, name, size, color, photo)
+      const stores = this.validateProduct.get('stores')?.value;
+      this.registerProduct(name, size, color, photo, stores);
     } else {
       this.response = "El formulario contiene errores. Por favor, verifique los campos.";
     }
   }
-  registerProduct(code: string, name: string, size: string, color: string, photo: number): void {
-    //llamada al servicio{}
+  registerProduct(name: string, size: string, color: string, photo: number, stores: string[]): void {
+    // Call your service to register the product with the selected categories
     this.router.navigate(["/products"]);
-  }
-  index() {
-    this.router.navigate(['/stores']);
   }
   logout() {
     this.authenticationService.logout();

@@ -14,6 +14,7 @@ export class ManageStoresComponent implements OnInit {
   filteredStores: Store[] = [];
   filterForm: FormGroup;
   activeFilter: boolean = false;
+  showElement: boolean = false;
   constructor(
     private authenticationService: AuthService,
     private router: Router
@@ -23,6 +24,8 @@ export class ManageStoresComponent implements OnInit {
     });
   }
   ngOnInit() {
+    const storeId = localStorage.getItem('storeId');
+    this.showElement = storeId == '0'
     this.getStores();
   }  
   getStores(){
@@ -72,9 +75,6 @@ export class ManageStoresComponent implements OnInit {
     this.filterForm.get('filter')?.setValue('');
   }
   disableStore(id: number, code: string, address: string, city: string, province: string, enabled: boolean): void {
-    //llamada al servicio {}
-  }
-  deleteStore(id: number): void {
     //llamada al servicio {}
   }
   createStore(){
